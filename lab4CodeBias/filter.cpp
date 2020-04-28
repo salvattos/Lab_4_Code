@@ -14,10 +14,12 @@ bool Filter::calcAngle(float& observedAngle, float& fusedAngle, float& gyroBias)
     compass.readAcc();
     
     //calcs
-    predictedAngle = lastAngle + (.01)*((gyro.g.y * .00875) - lastBias); //prediction with bias correction
+    gyroReading = (gyro.g.y*.00875) + gyroBias;
+    gyroBias = lastBias + eps*(observedAngle - predictedAngle); //update bias
+    predictedAngle = lastAngle + (.01)*(gyroReading - lastBias); //prediction with bias correction
     observedAngle = (atan2((compass.a.x),(compass.a.z)) * (180.0/3.14259)) - accOffset; //Observation from accelerometer
     fusedAngle = k*predictedAngle + (1-k)*observedAngle; //correction
-    gyroBias = lastBias + eps*(observedAngle - predictedAngle); //update bias
+    
 
 
      if(buttonC.isPressed()){ //running average for acc offset

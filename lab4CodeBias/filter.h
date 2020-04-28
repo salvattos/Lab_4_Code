@@ -14,6 +14,7 @@ class Filter
     float k = .5;
     float accOffset;
     float accTemp = 0;
+    float gyroReading = 0;
 
     float eps = .01;
     int inc = 0;
