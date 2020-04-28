@@ -9,7 +9,6 @@ Filter::Filter() {
 
 bool Filter::calcAngle(float& observedAngle, float& fusedAngle, float& gyroBias){ 
   statA = compass.readReg(LSM303::STATUS_A);
-  //compass.readAcc();
   if(statA & 0x0F){
     gyro.read(); //setup
     compass.readAcc();
@@ -75,5 +74,5 @@ void Filter::Init(void) {
   gyro.enableDefault();
 
   gyro.writeReg(L3G::CTRL1, 0xBF);
-  compass.writeReg(LSM303::CTRL1, 0x17);
+  compass.writeReg(LSM303::CTRL1, 0x67);
 }
